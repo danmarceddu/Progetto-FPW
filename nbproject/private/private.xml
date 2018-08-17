@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/Progetti/NetBeans/FastPressWriter/src/java/servlet/Logout.java</file>
+            <file>file:/D:/Progetti/NetBeans/FastPressWriter/src/java/servlet/Login.java</file>
+            <file>file:/D:/Progetti/NetBeans/FastPressWriter/web/WEB-INF/tags/layout.tag</file>
+            <file>file:/D:/Progetti/NetBeans/FastPressWriter/src/java/enumeration/ArticleCategory.java</file>
+            <file>file:/D:/Progetti/NetBeans/FastPressWriter/web/WEB-INF/web.xml</file>
+            <file>file:/D:/Progetti/NetBeans/FastPressWriter/src/java/servlet/Notizie.java</file>
+            <file>file:/D:/Progetti/NetBeans/FastPressWriter/src/java/factory/UserFactory.java</file>
+            <file>file:/D:/Progetti/NetBeans/FastPressWriter/src/java/servlet/NewsDetail.java</file>
+            <file>file:/D:/Progetti/NetBeans/FastPressWriter/src/java/model/User.java</file>
+            <file>file:/D:/Progetti/NetBeans/FastPressWriter/web/notizieMultiple.jsp</file>
+            <file>file:/D:/Progetti/NetBeans/FastPressWriter/web/notiziaSingola.jsp</file>
+        </group>
+    </open-files>
+</project-private>
