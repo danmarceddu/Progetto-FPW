@@ -1,0 +1,185 @@
+body {
+    background-color: lightblue;
+    font-family: "Arial", Verdana, sans-serif;
+    color: black;
+}
+
+aside {
+    width: 250px;
+    height: 100%;
+    position: fixed;
+}
+
+main {
+    margin-left: 250px;
+}
+
+#logo {
+    float: left;
+    text-align: center;
+    width: 200px;
+    height: 30px;
+    line-height: 1px;
+    margin-right: 10px;
+}
+
+ul.menu {
+    font-size: 11px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+  
+ul.menu li {
+    background-color: #FF831C;
+    border-bottom: 5px solid #54BAE2;
+    display: block;
+    width: 150px;
+    height: 30px;
+    margin: 2px;
+    float: left;
+}
+  
+ul.menu li a {
+    color: #fff;
+    display: block;
+    font-weight: bold;
+    line-height: 30px;
+    text-decoration: none;
+    width: 150px;
+    height: 30px;
+    text-align: center;
+}
+
+ul.menu li.active, ul.menu li:hover {
+    background-color: #54BAE2;
+    border-bottom: 5px solid #FF831C;
+}
+
+.content {
+    clear: both;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+h3 {
+    font-size: 18px;
+}
+
+a:link {
+    color: brown;
+}
+
+a:visited {
+    color: crimson;
+}
+
+a:hover {
+    color: crimson;
+}
+
+a:active {
+    color: brown;
+}
+
+input:required:focus {
+  border:  1px solid red;
+  outline: none;
+}
+
+input:required:hover {
+  opacity: 1;
+}
+
+#login-form {
+    width: 180px;
+    padding: 0 2px 10px 10px;
+    border-style: solid;
+    border-width: 1px;
+    background-color: white;
+}
+
+.input-center {
+    margin: 5px 0 5px 0;
+}
+
+#login-button {
+    margin-left: 60px;
+}
+
+.element-right {
+    float: right;
+}
+
+.center {
+    margin: 50px  auto;
+}
+
+.notizia {
+    max-width: 500px;
+    text-align: justify;
+}
+
+img.thumb {
+  object-fit: cover;
+  width: 100px;
+  height: 100px;
+  float: left;
+  margin-right: 10px;
+  border-radius: 8px;
+  border-style: solid;
+  border-color: grey;
+  border-width: 1px;
+}
+
+td {
+    text-align: center;
+}
+
+th {
+    color: white;
+    background: black;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+table {
+    width: 80%;
+}
+
+tr:nth-child(odd){ 
+    background-color: #99ff99;
+}
+
+.table {
+    padding-left: 20%;
+}
+
+.block label { 
+    display: inline-block;
+    width: 140px;
+    text-align: right;
+}
+
+.block input {
+    width: 170px;
+}
+
+.block textarea {
+    width: 170px;
+}
+
+.user-logged{
+    float: left;
+    padding: 10px 10px 0 0;
+    margin: 0;
+}

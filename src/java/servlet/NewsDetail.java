@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlet;
 
 import factory.ArticleFactory;
@@ -14,15 +9,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import model.Article;
 import model.Comment;
 import model.User;
 
-/**
- *
- * @author Alessandro Pilosu
- */
 public class NewsDetail extends HttpServlet {
 
     /**
@@ -40,7 +30,7 @@ public class NewsDetail extends HttpServlet {
         try {  
             id = Integer.parseInt(request.getParameter("nid"));
         } catch (NumberFormatException e) {  
-            response.sendRedirect("404.html");
+            response.sendRedirect("404.jsp");
             return;
         }
          
@@ -53,16 +43,16 @@ public class NewsDetail extends HttpServlet {
         if (searchedArticle != null) {
             User searchedUser = userDAO.getUserById(searchedArticle.getAuthorId());
             List<Comment> searchedComments = commentDAO.getCommentsByArticleId(id);
-            List<User> usersComments = userDAO.getUsersFromComments(searchedComments);
+            List<User> usersComments = userDAO.getUsersByComments(searchedComments);
             request.setAttribute("article", searchedArticle);
             request.setAttribute("author", searchedUser);
             request.setAttribute("comments", searchedComments);
             request.setAttribute("usersComments", usersComments);
         } else {
-            response.sendRedirect("404.html");
+            response.sendRedirect("404.jsp");
             return;
         }
-        request.getRequestDispatcher("/notiziaSingola.html").include(request, response);
+        request.getRequestDispatcher("/notizia.jsp").include(request, response);
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

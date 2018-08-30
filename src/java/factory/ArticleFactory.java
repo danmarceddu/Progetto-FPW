@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package factory;
 
 import enumeration.ArticleCategory;
@@ -15,10 +10,6 @@ import java.util.List;
 import model.Article;
 import model.User;
 
-/**
- *
- * @author Alessandro Pilosu
- */
 public class ArticleFactory {
     
     static Connection currentCon = null;
@@ -83,11 +74,11 @@ public class ArticleFactory {
         return null;
     }
     
-    public List<Article> getArticlesByCategory(ArticleCategory category){
+    public List<Article> getArticlesByCategories(String category){
         try {
             currentCon = ConnectionManager.getConnection();
-            PreparedStatement ps = currentCon.prepareStatement("SELECT * FROM articles WHERE articleCategory = ?");
-            ps.setString(1, category.name());
+            PreparedStatement ps = currentCon.prepareStatement("SELECT * FROM articles WHERE articleCategory = '%?%'");
+            ps.setString(1, category);
             ResultSet rs = ps.executeQuery();
 
             if(rs == null)
@@ -102,7 +93,7 @@ public class ArticleFactory {
                                                  rs.getString("imageURL"), 
                                                  rs.getDate("date"), 
                                                  rs.getString("articleText"), 
-                                                 category));
+                                                 ArticleCategory.valueOf(rs.getString("articleCategory"))));
             }
             return searchedArticles;
         }
@@ -133,36 +124,6 @@ public class ArticleFactory {
             
             while (rs.next()) {
                 searchedArticles.add(new Article(rs.getInt("articleId"), 
-                                                 rs.getInt("authorId"), 
-                                                 rs.getString("title"), 
-                                                 rs.getString("imageURL"), 
-                                                 rs.getDate("date"), 
-                                                 rs.getString("articleText"), 
-                                                 ArticleCategory.valueOf(rs.getString("articleCategory"))));
-            }
-            return searchedArticles;
-        }
-        catch (Exception e) {
-            System.err.println("Got an exception! ");
-            System.err.println(e.getMessage());
-        }
-        return null;
-    }
-    
-    public List<Article> getArticlesFromSpecificAuthor(User author) {
-        try {
-            currentCon = ConnectionManager.getConnection();
-            PreparedStatement ps = currentCon.prepareStatement("SELECT * FROM articles WHERE authorId = ?");
-            ps.setInt(1, author.getUserId());
-            ResultSet rs = ps.executeQuery();
-
-            if(rs == null)
-                throw new Exception();
-            
-            List<Article> searchedArticles = new ArrayList<>();
-            
-            while (rs.next()) {
-                searchedArticles.add(new Article(author.getUserId(), 
                                                  rs.getInt("authorId"), 
                                                  rs.getString("title"), 
                                                  rs.getString("imageURL"), 
@@ -219,14 +180,26 @@ public class ArticleFactory {
     public void deleteArticle(int id){
         try {
             currentCon = ConnectionManager.getConnection();
-            PreparedStatement ps = currentCon.prepareStatement("DELETE FROM articles WHERE articleId = ?");
+            PreparedStatement ps = currentCon.prepareStatement("START TRANSACTION;\n"
+                    + "DELETE FROM comments WHERE articleId = ?;\n"
+                    + "DELETE FROM articles WHERE articleId = ?");
             ps.setInt(1, id);
+            ps.setInt(2, id);
 
             ps.executeUpdate();
+            ps.executeQuery("COMMIT;");
         }
-        catch (SQLException e) {
+        catch (SQLException se) {
             System.err.println("Got an exception! ");
-            System.err.println(e.getMessage());
+            System.err.println(se.getMessage());
+            try
+            {
+                PreparedStatement ps = currentCon.prepareStatement("ROLLBACK;");
+                ps.executeUpdate();
+                }
+            catch (SQLException e)
+            {
+            }
         }
     }
 }

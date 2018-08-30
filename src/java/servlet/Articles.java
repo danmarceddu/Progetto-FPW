@@ -1,16 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlet;
 
 import enumeration.UserRole;
 import factory.ArticleFactory;
 import factory.UserFactory;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,10 +14,6 @@ import javax.servlet.http.HttpSession;
 import model.Article;
 import model.User;
 
-/**
- *
- * @author Felkun
- */
 public class Articles extends HttpServlet {
 
     /**
@@ -39,19 +28,16 @@ public class Articles extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        ArticleFactory articleDAO = new ArticleFactory();
-        UserFactory userDAO = new UserFactory();
-        
-        User author = (User) session.getAttribute("user");
-        List <Article> searchedArticles = articleDAO.getArticlesFromSpecificAuthor(author);
-
-        if (searchedArticles != null) {
-            request.setAttribute("searchedArticles", searchedArticles);
-        } else {
-            response.sendRedirect("404.html");
+        User user = (User) session.getAttribute("user");
+        if (UserRole.author != user.getRole()){
+            response.sendRedirect("accessoNegato.jsp");
             return;
         }
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/articles.html");
+        ArticleFactory articleDAO = new ArticleFactory();
+        List <Article> searchedArticles = articleDAO.getArticlesByAuthor(user);
+
+        request.setAttribute("searchedArticles", searchedArticles);
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/articoli.jsp");
 	rd.forward(request, response);
     }
 
@@ -67,11 +53,6 @@ public class Articles extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        if (session.getAttribute("user.role") != "author"){
-            response.sendRedirect("accessoNegato.html");
-            return;
-        }
         processRequest(request, response);
     }
 

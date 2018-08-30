@@ -1,18 +1,11 @@
-<%-- 
-    Document   : layout
-    Created on : 30-giu-2018, 19.32.47
-    Author     : Alessandro Pilosu
---%>
-
 <%@tag description="Layout Fast Press Writer" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
-<%-- The list of normal or fragment attributes can be specified here: --%>
 <%@attribute name="title"%>
 <%@attribute name="head_area" fragment="true" %>
 <%@attribute name="body_area" fragment="true" %>
 
-<%-- any content can be specified here e.g.: --%>
 <html>
     <head>
         <title>${title} | Fast Press Writer</title>
@@ -22,8 +15,11 @@
         <meta name="keywords" content="AMM, università, blog">
         <meta name="generator" content="NetBeans">
         <meta name="author" content="Alessandro Pilosu">
-        <link href="style.css" rel="stylesheet" type="text/css">
+        <link href="css/style.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" crossorigin="anonymous">
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/filter.js"></script>
+        
         <jsp:invoke fragment="head_area"/>
     </head>
     <body>
@@ -32,15 +28,18 @@
         </aside>
         <main>
             <ul class="menu">
-                <li><a href="articoli.html">Notizie</a></li>
+                <li><a href="notizie.html">Notizie</a></li>
+                <c:if test="${not empty sessionScope.user}">
+                    <li><a href="profilo.html">Profilo</a></li>
+                </c:if>
             </ul>
             <ul class="menu element-right">
                 <c:choose>
                     <c:when test="${empty sessionScope.user}">
-                        <li><a class="element-right" href="Login">Login</a></li>
+                        <li><a class="element-right" href="login.html">Login</a></li>
                     </c:when>
                     <c:otherwise>
-                        Bentornato, <c:out value="${sessionScope.user.name}"/>
+                        <h3 class="user-logged">Bentornato, <c:out value="${sessionScope.user.name}"/></h3>
                         <li><a class="element-right" href="Logout">Logout</a></li>
                     </c:otherwise>
                 </c:choose>

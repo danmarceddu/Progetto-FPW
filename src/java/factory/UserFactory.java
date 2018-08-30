@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package factory;
 
 import enumeration.UserRole;
@@ -15,10 +10,6 @@ import java.util.List;
 import model.Comment;
 import model.User;
 
-/**
- *
- * @author Alessandro Pilosu
- */
 public class UserFactory {
     
     static Connection currentCon = null;
@@ -39,6 +30,7 @@ public class UserFactory {
                 searchedUser = new User(id, 
                                         rs.getString("name"), 
                                         rs.getString("surname"),
+                                        rs.getString("username"),
                                         rs.getDate("birthday"),
                                         rs.getString("profileImageURL"),
                                         rs.getString("biography"));
@@ -52,7 +44,39 @@ public class UserFactory {
         return null;
     }
     
-    public List<User> getUsersFromComments(List<Comment> comments){
+    public User getUserToModifyById(int id){
+        try {
+            currentCon = ConnectionManager.getConnection();
+            PreparedStatement ps = currentCon.prepareStatement("SELECT * FROM users WHERE userId = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if(rs == null)
+                throw new Exception();
+            
+            User searchedUser = null;
+            
+            while (rs.next()) {
+                searchedUser = new User(id, 
+                                        rs.getString("name"), 
+                                        rs.getString("surname"),
+                                        rs.getString("password"),
+                                        rs.getString("username"),
+                                        rs.getDate("birthday"),
+                                        rs.getString("profileImageURL"),
+                                        rs.getString("biography"),
+                                        UserRole.valueOf(rs.getString("role")));
+            }
+            return searchedUser;
+        }
+        catch (Exception e) {
+            System.err.println("Got an exception! ");
+            System.err.println(e.getMessage());
+        }
+        return null;
+    }
+    
+    public List<User> getUsersByComments(List<Comment> comments){
         try {
             currentCon = ConnectionManager.getConnection();
             List<User> searchedUsers = new ArrayList();
@@ -69,10 +93,37 @@ public class UserFactory {
                     searchedUsers.add(new User (comm.getAuthorId(), 
                                                 rs.getString("name"), 
                                                 rs.getString("surname"),
+                                                rs.getString("username"),
                                                 rs.getDate("birthday"),
                                                 rs.getString("profileImageURL"),
                                                 rs.getString("biography")));
                 }
+            }
+            return searchedUsers;
+        }
+        catch (Exception e) {
+            System.err.println("Got an exception! ");
+            System.err.println(e.getMessage());
+        }
+        return null;
+    }
+    
+    public ArrayList<User> getUsersBySearchInput(String query) {
+        try {
+            currentCon = ConnectionManager.getConnection();
+            ArrayList<User> searchedUsers = new ArrayList();
+            
+            PreparedStatement ps = currentCon.prepareStatement("SELECT * FROM users WHERE name = ? OR surname = ?");
+            ps.setString(1, query);
+            ResultSet rs = ps.executeQuery();
+
+            if(rs == null)
+                throw new Exception();
+
+            while (rs.next()) {
+                searchedUsers.add(new User (rs.getInt("userId"), 
+                                            rs.getString("name"), 
+                                            rs.getString("surname")));
             }
             return searchedUsers;
         }
@@ -163,7 +214,8 @@ public class UserFactory {
             User searchedUser = null;
             
             while (rs.next()) {
-                searchedUser = new User(rs.getString("name"), 
+                searchedUser = new User(rs.getInt("userId"),
+                                        rs.getString("name"), 
                                         rs.getString("surname"),
                                         UserRole.valueOf(rs.getString("role")));
             }

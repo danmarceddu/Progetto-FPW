@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlet;
 
 import enumeration.ArticleCategory;
@@ -20,10 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import model.Article;
 import model.User;
 
-/**
- *
- * @author Alessandro Pilosu
- */
 @WebServlet("/Notizie")
 public class Notizie extends HttpServlet {
 
@@ -58,10 +49,10 @@ public class Notizie extends HttpServlet {
             request.setAttribute("searchedCorrectedArticles", searchedCorrectedArticles);
             request.setAttribute("searchedAuthors", searchedAuthors);
         } else {
-            response.sendRedirect("404.html");
+            response.sendRedirect("404.jsp");
             return;
         }
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/notizieMultiple.html");
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/notizie.jsp");
 	rd.forward(request, response);
     }
     

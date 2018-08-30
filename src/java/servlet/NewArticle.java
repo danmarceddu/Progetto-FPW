@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlet;
 
 import enumeration.ArticleCategory;
+import enumeration.UserRole;
 import factory.ArticleFactory;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -15,11 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Article;
+import model.User;
 
-/**
- *
- * @author Felkun
- */
 public class NewArticle extends HttpServlet {
 
     /**
@@ -41,11 +34,14 @@ public class NewArticle extends HttpServlet {
             Article searchedArticle = articleDAO.getArticleById(id);
 
             if (searchedArticle != null) {
-                request.setAttribute("searchedArticle", searchedArticle);
+                request.setAttribute("article", searchedArticle);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/modificaArticolo.jsp");
+                rd.forward(request, response);
+                return;
             }
         } catch (NumberFormatException e) {}
         
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/articles.html");
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/scriviArticolo.jsp");
 	rd.forward(request, response);
     }
 
@@ -62,8 +58,9 @@ public class NewArticle extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        if (session.getAttribute("user.role") != "author"){
-            response.sendRedirect("accessoNegato.html");
+        User user = (User) session.getAttribute("user");
+        if (user == null || UserRole.author != user.getRole()){
+            response.sendRedirect("accessoNegato.jsp");
             return;
         }
         processRequest(request, response);

@@ -45,10 +45,4 @@
             30
         </session-timeout>
     </session-config>
-    <jsp-config>
-        <jsp-property-group>
-            <url-pattern>*.html</url-pattern>
-        </jsp-property-group>
-    </jsp-config>
-
 </web-app>

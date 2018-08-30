@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlet;
 
-/**
- * @author Alessandro Pilosu
- */
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,9 +12,6 @@ import javax.servlet.http.HttpSession;
 import factory.*;
 import model.*;
 
-/**
- * Servlet implementation class Login
- */
 @WebServlet("/Login")
 public class Login extends HttpServlet {
 
@@ -47,10 +35,10 @@ public class Login extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         if (session.getAttribute("user") != null){
-            response.sendRedirect("articoli.html");
+            response.sendRedirect("notizie.html");
             return;
         }
-        request.getRequestDispatcher("/loginPage.html").include(request, response);   
+        request.getRequestDispatcher("/login.jsp").include(request, response);   
     }
 
     /**
@@ -69,13 +57,12 @@ public class Login extends HttpServlet {
             if (user != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
-                RequestDispatcher rd = request.getRequestDispatcher("articoli.html");
-                rd.forward(request, response);
+                response.sendRedirect("notizie.html");
             } else {
-                response.sendRedirect("index.html"); // error page
+                response.sendRedirect("accessoNegato.jsp");
             }
-        } catch (IOException | ServletException theException) {
-            System.out.println(theException);
+        } catch (IOException e) {
+            System.out.println(e);
         }
     }
 

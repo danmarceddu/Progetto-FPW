@@ -1,17 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import enumeration.UserRole;
 import java.sql.Date;
 
-/**
- *
- * @author Alessandro Pilosu
- */
 public class User {
     private int userId;
     private String name;
@@ -23,22 +14,42 @@ public class User {
     private String biography;
     private UserRole role;
     
-    public User(String name, String surname, UserRole role){
+    public User(int userId, String name, String surname){
+        this.userId = userId;
+        this.name = name;
+        this.surname = surname;
+    }
+    
+    public User(int userId, String name, String surname, UserRole role){
+        this.userId = userId;
         this.name = name;
         this.surname = surname;
         this.role = role;
     }
     
-    public User(int userId, String name, String surname, Date birthday, String profileImageURL, String biography){
+    public User(int userId, String name, String surname, String username, Date birthday, String profileImageURL, String biography){
         this.userId = userId;
         this.name = name;
         this.surname = surname;
+        this.username = username;
         this.birthday = birthday;
         this.profileImageURL = profileImageURL;
         this.biography = biography;
     }
     
-    public User(String name, String surname, String password, String username, Date birthday, String profileImageURL, String biography, UserRole role){
+    public User(int userId, String name, String surname, String password, String username, Date birthday, String profileImageURL, String biography){
+        this.userId = userId;
+        this.name = name;
+        this.surname = surname;
+        this.password = password;
+        this.username = username;
+        this.birthday = birthday;
+        this.profileImageURL = profileImageURL;
+        this.biography = biography;
+    }
+    
+    public User(int userId, String name, String surname, String password, String username, Date birthday, String profileImageURL, String biography, UserRole role){
+        this.userId = userId;
         this.name = name;
         this.surname = surname;
         this.password = password;
