@@ -17,6 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.User;
 
+/**
+ *
+ * @author Felkun
+ */
 @WebServlet(name = "CancellaProfilo", urlPatterns = {"/CancellaProfilo"})
 public class CancellaProfilo extends HttpServlet {
 

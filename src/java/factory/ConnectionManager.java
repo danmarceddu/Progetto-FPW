@@ -3,21 +3,40 @@ package factory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ConnectionManager {
-
-    static Connection con;
-    static String url;
-
-    public static Connection getConnection() {
-
+    
+    private static ConnectionManager singleton;
+    
+    private ConnectionManager(){
         try {
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            String url1 = "jdbc:mysql://ec2-52-47-198-123.eu-west-3.compute.amazonaws.com:443/fpw18_marceddudaniele";
-            con = DriverManager.getConnection(url1, "fpw18_marceddudaniele", "danmarceddu");
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException ex) {
-            System.err.println(ex.getMessage());
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch(ClassNotFoundException ex) {
+            Logger.getLogger(ConnectionManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return con;
+    }
+    
+    public static ConnectionManager getInstance(){
+        //Non ancora istanziato
+        if(singleton == null)
+        {
+            singleton =  new ConnectionManager();
+        }
+        return singleton;
+    }
+    
+    public static Connection getConnection(){
+        Connection conn = null;
+        String str_conn = "jdbc:mysql://ec2-52-47-198-123.eu-west-3.compute.amazonaws.com:443/fpw18_marceddudaniele";
+        try
+        {
+            conn = DriverManager.getConnection(str_conn, "fpw18_marceddudaniele", "danmarceddu");
+        }catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+         return conn;
     }
 }

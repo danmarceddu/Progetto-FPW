@@ -38,6 +38,9 @@ public class NewArticle extends HttpServlet {
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/modificaArticolo.jsp");
                 rd.forward(request, response);
                 return;
+            } else {
+                response.sendRedirect("404.jsp");
+                return;
             }
         } catch (NumberFormatException e) {}
         
@@ -99,6 +102,9 @@ public class NewArticle extends HttpServlet {
             
             articleDAO.insertArticle(article);
             request.setAttribute("searchedArticle", article);
+            
+            id = articleDAO.getLastArticleId();
+            response.sendRedirect("scriviArticolo.html?nid=" + id);
         }
         processRequest(request, response);
     }

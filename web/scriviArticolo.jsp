@@ -9,22 +9,19 @@
         <h1 style="text-align: center;">Scrivi un Articolo</h1>
 
         <div class="center" style="width: 500px">
-            <form class='center' action="" style='align: right;'>
+            <form class='center' action="/FastPressWriter/InserisciArticolo" style='align: right;'>
+                    <input type="hidden" id="authorId" name="authorId" value="${user.userId}">
                 <div class='block'>
                     <label>Titolo</label>
                     <input class="input-center" id="title" name="title" type="text" placeholder="Inserisci titolo" required />
                 </div>
                 <div class='block'>
-                    <label>Data</label>
-                    <input class="input-center" id="data" name="data" type="date" required />
-                </div>
-                <div class='block'>
                     <label>Immagine</label>
-                    <input class="input-center" id="image" name="title" type="text" placeholder="Inserisci URL immagine" />
+                    <input class="input-center" id="image" name="image" type="text" placeholder="Inserisci URL immagine" />
                 </div>
                 <div class='block'>
                     <label>Testo</label>
-                    <textarea class="input-center" id="text" name="text" rows='3' required /></textarea>
+                    <textarea class="input-center" id="articleText" name="articleText" rows='3' required /></textarea>
                 </div>
                 <div class='block'>
                     <label>Categoria</label>
@@ -35,6 +32,7 @@
                 </div>
                 <div class='block'>
                     <input class="input-center" id="login-button" type="button" value="submit" />
+                </div>
             </form>
         </div>
     </jsp:attribute>

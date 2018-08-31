@@ -46,11 +46,10 @@
                     <input class="input-center" name="imageURL" type="text" value="${profileUser.profileImageURL}" />
                     <br /><br />
                     <label>Biografia</label>
-                
+                </div>
                 <br />
                 <input class="input-center" name="biography" type="text" value="${profileUser.biography}" />
                 <br /><br />
-                </div>
                 <input class="input-center" type="submit" value="Aggiorna Profilo" />
             </form>
                 

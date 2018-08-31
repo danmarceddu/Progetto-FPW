@@ -2,6 +2,7 @@ package factory;
 
 import enumeration.ArticleCategory;
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +14,28 @@ import model.User;
 public class ArticleFactory {
     
     static Connection currentCon = null;
+    
+    public int getLastArticleId(){
+        int id = 0;
+        try {
+            currentCon = ConnectionManager.getConnection();
+            PreparedStatement ps = currentCon.prepareStatement("SELECT articleId FROM articles ORDER BY articleId DESC LIMIT 1");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if(rs == null)
+                throw new Exception();
+            
+            while (rs.next()) {
+                id = rs.getInt("articleId");
+            }
+        }
+        catch (Exception e) {
+            System.err.println("Got an exception! ");
+            System.err.println(e.getMessage());
+        }
+        return id;
+    }
     
     public Article getArticleById(int id){
         try {
@@ -143,12 +166,13 @@ public class ArticleFactory {
     public void insertArticle(Article article){
         try {
             currentCon = ConnectionManager.getConnection();
-            PreparedStatement ps = currentCon.prepareStatement("INSERT INTO articles (authorId, title, imageURL, articleText, articleCategory) VALUES (?, ?, ?, ?, ?");
+            PreparedStatement ps = currentCon.prepareStatement("INSERT INTO articles (authorId, title, imageURL, articleText, articleCategory, date) VALUES (?, ?, ?, ?, ?, ?)");
             ps.setInt(1, article.getAuthorId());
             ps.setString(2, article.getTitle());
             ps.setString(3, article.getImageURL());
             ps.setString(4, article.getArticleText());
             ps.setString(5, article.getCategory().name());
+            ps.setDate(6, (java.sql.Date) new Date());
 
             ps.executeUpdate();
         }
@@ -180,7 +204,7 @@ public class ArticleFactory {
     public void deleteArticle(int id){
         try {
             currentCon = ConnectionManager.getConnection();
-            PreparedStatement ps = currentCon.prepareStatement("START TRANSACTION;\n"
+            PreparedStatement ps = currentCon.prepareStatement("START TRANSLACTION;\n"
                     + "DELETE FROM comments WHERE articleId = ?;\n"
                     + "DELETE FROM articles WHERE articleId = ?");
             ps.setInt(1, id);

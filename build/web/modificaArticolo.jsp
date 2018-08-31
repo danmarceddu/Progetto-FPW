@@ -10,17 +10,14 @@
 
         <div class="center" style="width: 500px">
             <form class='center' action="" style='align: right;'>
+                    <input type="hidden" id="articleId" name="articleId" value="${article.articleId}">
                 <div class='block'>
                     <label>Titolo</label>
                     <input class="input-center" id="title" name="title" type="text" value="${article.title}" placeholder="Inserisci titolo" required />
                 </div>
                 <div class='block'>
-                    <label>Data</label>
-                    <input class="input-center" id="data" name="data" type="date" value="${article.date}" required />
-                </div>
-                <div class='block'>
                     <label>Immagine</label>
-                    <input class="input-center" id="image" name="title" type="text" value="${article.imageURL}" placeholder="Inserisci URL immagine" />
+                    <input class="input-center" id="image" name="image" type="text" value="${article.imageURL}" placeholder="Inserisci URL immagine" />
                 </div>
                 <div class='block'>
                     <label>Testo</label>
@@ -35,6 +32,7 @@
                 </div>
                 <div class='block'>
                     <input class="input-center" id="login-button" type="button" value="submit" />
+                </div>
             </form>
         </div>
     </jsp:attribute>
