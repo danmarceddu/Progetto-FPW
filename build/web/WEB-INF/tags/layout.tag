@@ -14,7 +14,7 @@
         <meta name="description" content="Progetto di sviluppo Web">
         <meta name="keywords" content="AMM, università, blog">
         <meta name="generator" content="NetBeans">
-        <meta name="author" content="Alessandro Pilosu">
+        <meta name="author" content="Daniele Marceddu">
         <link href="css/style.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" crossorigin="anonymous">
         <script type="text/javascript" src="js/jquery.js"></script>
