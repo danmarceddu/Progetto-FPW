@@ -27,6 +27,10 @@ public class Login extends HttpServlet {
     }
 
     /**
+     * @param request
+     * @param response
+     * @throws javax.servlet.ServletException
+     * @throws java.io.IOException
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      * response)
      */
@@ -34,7 +38,7 @@ public class Login extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, java.io.IOException {
 
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         if (session.getAttribute("user") != null){
             response.sendRedirect("notizie.jsp");
             return;
