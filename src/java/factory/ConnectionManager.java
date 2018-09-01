@@ -29,7 +29,7 @@ public class ConnectionManager {
     
     public static Connection getConnection(){
         Connection conn = null;
-        String str_conn = "jdbc:mysql://ec2-52-47-198-123.eu-west-3.compute.amazonaws.com:443/fpw18_marceddudaniele";
+        String str_conn = "jdbc:mysql://ec2-52-47-198-123.eu-west-3.compute.amazonaws.com:443/fpw18_marceddudaniele?zeroDateTimeBehavior=convertToNull";
         try
         {
             conn = DriverManager.getConnection(str_conn, "fpw18_marceddudaniele", "danmarceddu");
