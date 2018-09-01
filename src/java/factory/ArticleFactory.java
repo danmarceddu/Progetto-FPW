@@ -129,7 +129,7 @@ public class ArticleFactory {
     
     public List<Article> getArticlesInChronogicalOrder(ArticleCategory category) {
         try {
-            currentCon = ConnectionManager.getInstance().getConnection();
+            currentCon = ConnectionManager.getConnection();
             PreparedStatement ps;
             if (category == null) {
                 ps = currentCon.prepareStatement("SELECT * FROM articles ORDER BY articleId DESC");
