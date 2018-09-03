@@ -40,7 +40,7 @@ public class Login extends HttpServlet {
 
         HttpSession session = request.getSession();
         if (session.getAttribute("user") != null){
-            response.sendRedirect("notizie.jsp");
+            response.sendRedirect("notizie.html");
             return;
         }
         request.getRequestDispatcher("/login.jsp").include(request, response);   
@@ -62,7 +62,7 @@ public class Login extends HttpServlet {
             if (user != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
-                response.sendRedirect("notizie.html");
+            response.sendRedirect("notizie.html");
             } else {
                 response.sendRedirect("accessoNegato.jsp");
             }

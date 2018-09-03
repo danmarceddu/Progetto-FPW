@@ -2,9 +2,9 @@ package model;
 
 public class Comment {
     private int commentId;
-    private int authorId;
-    private int articleId;
-    private String commentText;
+    public int authorId;
+    public int articleId;
+    public String commentText;
     
     public Comment(int authorId, int articleId, String commentText){
         this.authorId = authorId;

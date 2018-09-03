@@ -23,16 +23,18 @@
                     <div class="element-right">Di ${author.name} ${author.surname}</div>
                     <div>${article.category}</div>
                 </div>
-                
+                <br />
+                <br />
+                <br />
                 <c:forEach var="comment" items="${usersComments}">
                     <div>
-                        <div>comment.commentText</div>
+                        <div>${comments[i].commentText}</div>
                         <br />
 
-                        <div class="element-right">Di ${author[i].name} ${author[i].surname}</div>
+                        <div class="element-right">Di ${usersComments[i].name} ${usersComments[i].surname}</div>
                         <br />
                     </div>
-                    <c:set var="i" value="i+1" />
+                    <fmt:parseNumber var="i" type="number" value="${i}+1" />
                 </c:forEach>
             </div>
         </div>

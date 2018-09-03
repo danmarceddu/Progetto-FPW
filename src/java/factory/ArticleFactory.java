@@ -19,7 +19,7 @@ public class ArticleFactory {
         int id = 0;
         try {
             currentCon = ConnectionManager.getConnection();
-            PreparedStatement ps = currentCon.prepareStatement("SELECT articleId FROM articles ORDER BY articleId DESC LIMIT 1");
+            PreparedStatement ps = currentCon.prepareStatement("SELECT articleId FROM articles ORDER BY articleId");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
@@ -129,7 +129,7 @@ public class ArticleFactory {
     
     public List<Article> getArticlesInChronogicalOrder(ArticleCategory category) {
         try {
-            currentCon = ConnectionManager.getConnection();
+            currentCon = ConnectionManager.getInstance().getConnection();
             PreparedStatement ps;
             if (category == null) {
                 ps = currentCon.prepareStatement("SELECT * FROM articles ORDER BY articleId DESC");

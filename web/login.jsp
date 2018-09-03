@@ -9,7 +9,7 @@
         <h1 style="text-align: center;"><i class="fas fa-comments"></i> Fast Press Writer</h1>
 
         <div>
-            <form class='center' id="login-form" action="/FastPressWriter/login.html" method="post">
+            <form class='center' id="login-form" action="login.html" method="post">
                 <h2>Accesso</h2>
                 <label>Username</label>
                 <input class="input-center" id="login-username" name="username" type="text" placeholder="Username" />

@@ -21,6 +21,7 @@
         </div>
 
         <div class="center" style="width: 500px">
+            <c:set var="init" value="0" />
             <c:forEach var="article" items="${searchedCorrectedArticles}">
                 <div class='notizia'>
                     <div>
@@ -34,7 +35,7 @@
                         <div>${article.category}</div>
                     </div>
                 </div>
-                <c:set var="i" value="${i}+1" />
+                <fmt:parseNumber var="i" type="number" value="${i}+1" />
             </c:forEach>
         </div>
     </jsp:attribute>

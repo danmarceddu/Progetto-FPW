@@ -2,7 +2,6 @@ package servlet;
 
 import enumeration.UserRole;
 import factory.ArticleFactory;
-import factory.UserFactory;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;

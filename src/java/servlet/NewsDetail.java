@@ -45,7 +45,7 @@ public class NewsDetail extends HttpServlet {
             List<Comment> searchedComments = commentDAO.getCommentsByArticleId(id);
             List<User> usersComments = userDAO.getUsersByComments(searchedComments);
             request.setAttribute("article", searchedArticle);
-            request.setAttribute("author", searchedUser);
+            request.setAttribute("author1", searchedUser);
             request.setAttribute("comments", searchedComments);
             request.setAttribute("usersComments", usersComments);
         } else {

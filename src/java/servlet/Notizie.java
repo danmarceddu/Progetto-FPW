@@ -24,6 +24,7 @@ public class Notizie extends HttpServlet {
      *
      * @param request servlet request
      * @param response servlet response
+     * @param category
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
@@ -39,13 +40,15 @@ public class Notizie extends HttpServlet {
 
         if (searchedArticles != null) {
             
-            for(Article art : searchedArticles){
+            searchedArticles.stream().map((art) -> {
                 searchedAuthors.add(userDAO.getUserById(art.getAuthorId()));
+                return art;
+            }).forEachOrdered((art) -> {
                 final String articleContent = getArticleContent(art);
                 
                 searchedCorrectedArticles.add(new Article(art.getArticleId(), art.getAuthorId(), art.getTitle(), art.getImageURL()
                         , art.getDate(), articleContent, art.getCategory()));
-                }
+            });
             request.setAttribute("searchedCorrectedArticles", searchedCorrectedArticles);
             request.setAttribute("searchedAuthors", searchedAuthors);
         } else {
