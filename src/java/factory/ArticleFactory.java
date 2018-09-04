@@ -166,13 +166,12 @@ public class ArticleFactory {
     public void insertArticle(Article article){
         try {
             currentCon = ConnectionManager.getConnection();
-            PreparedStatement ps = currentCon.prepareStatement("INSERT INTO articles (authorId, title, imageURL, articleText, articleCategory, date) VALUES (?, ?, ?, ?, ?, ?)");
+            PreparedStatement ps = currentCon.prepareStatement("INSERT INTO articles (authorId, title, imageURL, articleText, articleCategory, NOW()) VALUES (?, ?, ?, ?, ?, ?)");
             ps.setInt(1, article.getAuthorId());
             ps.setString(2, article.getTitle());
             ps.setString(3, article.getImageURL());
             ps.setString(4, article.getArticleText());
             ps.setString(5, article.getCategory().name());
-            ps.setDate(6, (java.sql.Date) new Date());
 
             ps.executeUpdate();
         }
@@ -185,13 +184,14 @@ public class ArticleFactory {
     public void updateArticle(Article article){
         try {
             currentCon = ConnectionManager.getConnection();
-            PreparedStatement ps = currentCon.prepareStatement("UPDATE articles SET authorId = ?, title = ?, imageURL = ?, articleText = ?, articleCategory = ? WHERE articleId = ?"); 
+            PreparedStatement ps = currentCon.prepareStatement("UPDATE articles SET authorId = ?, title = ?, imageURL = ?, date = ?, articleText = ?, articleCategory = ? WHERE articleId = ?"); 
             ps.setInt(1, article.getAuthorId());
             ps.setString(2, article.getTitle());
             ps.setString(3, article.getImageURL());
-            ps.setString(4, article.getArticleText());
-            ps.setString(5, article.getCategory().name());
-            ps.setInt(6, article.getArticleId());
+            ps.setDate(4, article.getDate());
+            ps.setString(5, article.getArticleText());
+            ps.setString(6, article.getCategory().name());
+            ps.setInt(7, article.getArticleId());
 
             ps.executeUpdate();
         }
@@ -204,7 +204,7 @@ public class ArticleFactory {
     public void deleteArticle(int id){
         try {
             currentCon = ConnectionManager.getConnection();
-            PreparedStatement ps = currentCon.prepareStatement("START TRANSLACTION;\n"
+            PreparedStatement ps = currentCon.prepareStatement("START TRANSACTION;\n"
                     + "DELETE FROM comments WHERE articleId = ?;\n"
                     + "DELETE FROM articles WHERE articleId = ?");
             ps.setInt(1, id);

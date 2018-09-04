@@ -53,7 +53,7 @@
                 <input class="input-center" type="submit" value="Aggiorna Profilo" />
             </form>
                 
-            <form style="float: right;" action="/FastPressWriter/CancellaProfilo" method="post">
+            <form style="float: right;" action="CancellaProfilo" method="post">
                 <input class="input-center" type="submit" value="Voglio cancellare il mio profilo" />
             </form>
         </div>

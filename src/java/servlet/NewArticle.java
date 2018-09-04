@@ -4,8 +4,14 @@ import enumeration.ArticleCategory;
 import enumeration.UserRole;
 import factory.ArticleFactory;
 import java.io.IOException;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import model.Article;
 import model.User;
 
+@WebServlet("/NewArticle")
 public class NewArticle extends HttpServlet {
 
     /**
@@ -81,19 +88,38 @@ public class NewArticle extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = 0;
+        int authorId = 0;
         
-        int authorId = Integer.parseInt(request.getParameter("user.userId"));
+        HttpSession session = request.getSession(false);
+        User user = (User) session.getAttribute("user");
+        
+        try {
+            authorId = Integer.parseInt(request.getParameter("authorId"));
+        } catch (NumberFormatException se) {
+            authorId = user.getUserId();
+        }
         String title = request.getParameter("title");
         String imageURL = request.getParameter("imageURL");
         String articleText = request.getParameter("articleText");
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	java.util.Date date = null;
+        try {
+            date = sdf.parse(request.getParameter("date"));
+        } catch (ParseException ex) {
+            Logger.getLogger(NewArticle.class.getName()).log(Level.SEVERE, null, ex);
+        }
+		
+	java.sql.Date sqlDate = new Date(date.getTime());
+        
         ArticleCategory category = ArticleCategory.valueOf(request.getParameter("category"));
             
         ArticleFactory articleDAO = new ArticleFactory();
         
         try {  
-            id = Integer.parseInt(request.getParameter("nid"));
+            id = Integer.parseInt(request.getParameter("articleId"));
             
-            Article article = new Article(id, authorId, title, imageURL, articleText, category);
+            Article article = new Article(id, authorId, title, imageURL, sqlDate, articleText, category);
 
             articleDAO.updateArticle(article);
             request.setAttribute("searchedArticle", article);

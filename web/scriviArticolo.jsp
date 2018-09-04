@@ -9,7 +9,7 @@
         <h1 style="text-align: center;">Scrivi un Articolo</h1>
 
         <div class="center" style="width: 500px">
-            <form class='center' action="/FastPressWriter/InserisciArticolo" style='align: right;'>
+            <form class='center' action="scriviArticolo.html" style='align: right;' method="post">
                     <input type="hidden" id="authorId" name="authorId" value="${user.userId}">
                 <div class='block'>
                     <label>Titolo</label>
@@ -27,11 +27,11 @@
                     <label>Categoria</label>
                 </div>
                 <div class='block'>
-                    <input class="input-center" id="category" name="category" type="radio" value="1" required /> Italia
-                    <input class="input-center" id="category" name="category" type="radio" value="2" /> Estero
+                    <input class="input-center" id="category" name="category" type="radio" value="Italia" required /> Italia
+                    <input class="input-center" id="category" name="category" type="radio" value="Estero" /> Estero
                 </div>
                 <div class='block'>
-                    <input class="input-center" id="login-button" type="button" value="submit" />
+                    <input class="input-center" id="login-button" type="submit" value="Inserisci articolo" />
                 </div>
             </form>
         </div>

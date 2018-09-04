@@ -40,6 +40,7 @@
         <servlet-name>NewArticle</servlet-name>
         <url-pattern>/scriviArticolo.html</url-pattern>
     </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30
